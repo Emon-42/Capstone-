@@ -55,7 +55,7 @@
     background: var(--bg-subtle);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;git switch -c asif_031
     color: var(--text-secondary);
     font-size: 15px;
 }
