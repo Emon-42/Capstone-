@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Records - Wedding Gift Ledger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon">🎁</div>
+                <div>
+                    <div class="brand-title">WEDDING GIFT</div>
+                    <div class="brand-subtitle">LEDGER & RECIPROCITY</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+                
+                <div class="nav-section-title">Management</div>
+                <a href="guests.html" class="nav-link">
+                    <span class="nav-icon">👥</span> Guests
+                </a>
+                <a href="gifts.html" class="nav-link active">
+                    <span class="nav-icon">🎀</span> Gift Records
+                </a>
+                <a href="thank-you.html" class="nav-link">
+                    <span class="nav-icon">💌</span> Thank You Messages
+                </a>
+
+                <div class="nav-section-title">Intelligence & Reciprocity</div>
+                <a href="ai-assistant.html" class="nav-link">
+                    <span class="nav-icon">✨</span> AI Assistant
+                </a>
+                <a href="gift-history.html" class="nav-link">
+                    <span class="nav-icon">⚖</span> Gift History & Reciprocity
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <span class="nav-icon">📈</span> Reports & Analytics
+                </a>
+
+                <div class="nav-section-title">System</div>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙</span> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">FR</div>
+                <div class="user-info">
+                    <div class="user-name">Farhana Rahman</div>
+                    <div class="user-role">Host Family (Admin)</div>
+                </div>
+                <a href="index.html" title="Sign Out" style="color: #94a3b8; text-decoration: none; font-size: 16px;">⎋</a>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle-btn">☰</button>
+                    <div>
+                        <div class="page-title">Master Gift Ledger</div>
+                        <div class="page-breadcrumb">Every gift accurately recorded, original handwritten notes preserved</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn btn-gold btn-sm" onclick="openAddGiftModal()">+ Record New Gift</button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Filters & Controls Card -->
+                <div class="card" style="padding: 16px 20px; margin-bottom: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;">
+                        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; flex: 1;">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search gifts, original notes, categories..." style="max-width: 320px;">
+                            
+                            <select id="category-filter" class="form-select" style="max-width: 180px;">
+                                <option value="all">All Categories</option>
+                                <option value="Household Items">Household Items</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Decorative Items">Decorative Items</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+
+                            <select id="status-filter" class="form-select" style="max-width: 180px;">
+                                <option value="all">All Review Statuses</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="requires_review">Requires Review</option>
+                                <option value="unidentified">Unidentified</option>
+                            </select>
+
+                            <select id="cash-filter" class="form-select" style="max-width: 160px;">
+                                <option value="all">All Gift Types</option>
+                                <option value="cash">Cash Gifts</option>
+                                <option value="non_cash">Non-Cash Gifts</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <span id="pagination-info" style="font-size: 12.5px; color: var(--text-muted);">Loading gifts...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gifts Table Card -->
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Gift Item & Original Handwritten Note</th>
+                                    <th>Category</th>
+                                    <th>Contributor(s)</th>
+                                    <th>Cash Amount</th>
+                                    <th>Review Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gifts-table-body">
+                                <tr><td colspan="7" class="text-center text-muted" style="padding: 30px;">Loading gift records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 20px;" id="pagination-controls">
+                        <!-- Pagination controls -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add/Edit Gift Modal -->
+    <div id="gift-modal" class="modal-backdrop">
+        <div class="modal-dialog" style="max-width: 680px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="gift-modal-title">Record New Gift</h3>
+                <button class="modal-close-btn" onclick="closeGiftModal()">✕</button>
+            </div>
+            <form id="gift-form">
+                <input type="hidden" id="gift-id">
+
+                <!-- Original Note & AI Extraction Assistant -->
+                <div style="background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+                    <label class="form-label" style="font-weight: 700; color: #78350f;">
+                        📝 Original Handwritten Note (Exact Text as Written) *
+                    </label>
+                    <textarea id="gift-original-note" class="form-control" rows="2" placeholder="e.g. Rahman uncle - dinner set, or Shilpi khala + family, envelope" required style="font-family: monospace; font-size: 13.5px;"></textarea>
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <span style="font-size: 11px; color: var(--text-muted); align-self: center;">Examples:</span>
+                            <button type="button" class="badge badge-neutral" style="cursor: pointer;" onclick="document.getElementById('gift-original-note').value='Rahman uncle - dinner set'">Rahman uncle</button>
+                            <button type="button" class="badge badge-neutral" style="cursor: pointer;" onclick="document.getElementById('gift-original-note').value='Shilpi khala + family, envelope'">Shilpi khala + family</button>
+                            <button type="button" class="badge badge-neutral" style="cursor: pointer;" onclick="document.getElementById('gift-original-note').value='the people from Chittagong - 2 sarees, didn\'t catch name'">Chittagong 2 sarees</button>
+                            <button type="button" class="badge badge-neutral" style="cursor: pointer;" onclick="document.getElementById('gift-original-note').value='big box, no card???'">big box no card</button>
+                        </div>
+                        <button type="button" id="ai-analyze-btn" class="btn btn-sm btn-primary" onclick="analyzeNoteWithAI()">
+                            ✨ AI Extract Note
+                        </button>
+                    </div>
+
+                    <!-- AI Suggestion Container -->
+                    <div id="ai-suggestion-box" style="display: none; margin-top: 14px;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Gift Name / Description *</label>
+                        <input type="text" id="gift-name" class="form-control" placeholder="e.g., 64-piece Dinner Set, 2 Sarees, Cash Envelope" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="gift-category" class="form-select">
+                            <option value="Household Items">Household Items</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Decorative Items">Decorative Items</option>
+                            <option value="Other">Other</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Joint Contributors Selector -->
+                <div class="form-group">
+                    <label class="form-label">Associated Contributor(s) / Givers (Hold Ctrl/Cmd to select multiple for Joint Gifts)</label>
+                    <select id="gift-contributors" class="form-select" multiple size="4" style="height: auto;">
+                        <!-- Preloaded from cache -->
+                    </select>
+                    <small style="color: var(--text-muted); font-size: 11.5px;">Supports individual and joint family gifts (e.g. Shilpi Khala + Family Members).</small>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" id="gift-quantity" class="form-control" value="1" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Is Cash Gift?</label>
+                        <div style="padding-top: 8px;">
+                            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+                                <input type="checkbox" id="gift-is-cash" onchange="document.getElementById('gift-cash-amount').disabled = !this.checked;">
+                                <span>Yes, Cash</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cash Amount (Optional)</label>
+                        <input type="number" id="gift-cash-amount" class="form-control" placeholder="Leave empty if unknown" disabled>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Verification / Review Status</label>
+                        <select id="gift-status" class="form-select">
+                            <option value="confirmed">Confirmed</option>
+                            <option value="requires_review">Requires Review (Incomplete)</option>
+                            <option value="unidentified">Unidentified</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Additional Family Notes</label>
+                        <input type="text" id="gift-additional-notes" class="form-control" placeholder="e.g., Kept in mother's bedroom">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeGiftModal()">Cancel</button>
+                    <button type="submit" class="btn btn-gold">Save Gift to Ledger</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/gifts.js"></script>
+</body>
+</html>

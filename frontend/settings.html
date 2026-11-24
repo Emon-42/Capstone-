@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Wedding Gift Ledger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon">🎁</div>
+                <div>
+                    <div class="brand-title">WEDDING GIFT</div>
+                    <div class="brand-subtitle">LEDGER & RECIPROCITY</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+                
+                <div class="nav-section-title">Management</div>
+                <a href="guests.html" class="nav-link">
+                    <span class="nav-icon">👥</span> Guests
+                </a>
+                <a href="gifts.html" class="nav-link">
+                    <span class="nav-icon">🎀</span> Gift Records
+                </a>
+                <a href="thank-you.html" class="nav-link">
+                    <span class="nav-icon">💌</span> Thank You Messages
+                </a>
+
+                <div class="nav-section-title">Intelligence & Reciprocity</div>
+                <a href="ai-assistant.html" class="nav-link">
+                    <span class="nav-icon">✨</span> AI Assistant
+                </a>
+                <a href="gift-history.html" class="nav-link">
+                    <span class="nav-icon">⚖</span> Gift History & Reciprocity
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <span class="nav-icon">📈</span> Reports & Analytics
+                </a>
+
+                <div class="nav-section-title">System</div>
+                <a href="settings.html" class="nav-link active">
+                    <span class="nav-icon">⚙</span> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">FR</div>
+                <div class="user-info">
+                    <div class="user-name">Farhana Rahman</div>
+                    <div class="user-role">Host Family (Admin)</div>
+                </div>
+                <a href="index.html" title="Sign Out" style="color: #94a3b8; text-decoration: none; font-size: 16px;">⎋</a>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle-btn">☰</button>
+                    <div>
+                        <div class="page-title">Application & Family Settings</div>
+                        <div class="page-breadcrumb">Manage wedding metadata, default currency, signature, and system health</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- System Health Status Banner -->
+                <div class="card" style="margin-bottom: 24px; padding: 18px 24px;">
+                    <div style="font-weight: 700; margin-bottom: 12px; font-size: 14px;">System Health & Infrastructure</div>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                        <div>
+                            <span style="font-size: 12px; color: var(--text-muted);">Database:</span>
+                            <div style="font-weight: 600; color: var(--success);" id="db-type-badge">MySQL 8 (Connected)</div>
+                        </div>
+                        <div>
+                            <span style="font-size: 12px; color: var(--text-muted);">Database Status:</span>
+                            <div style="font-weight: 600; color: var(--text-primary);" id="db-status-badge">Active & Synced</div>
+                        </div>
+                        <div>
+                            <span style="font-size: 12px; color: var(--text-muted);">AI Assistant Engine:</span>
+                            <div style="font-weight: 600; color: var(--primary);" id="ai-status-badge">Active (Heuristic NLP + Vision)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Form -->
+                <div class="card" style="max-width: 720px;">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Family & Wedding Profile</div>
+                            <div class="card-subtitle">Global defaults applied to notes, thank-you messages, and reciprocity ledgers</div>
+                        </div>
+                    </div>
+
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label class="form-label">Host Family Name</label>
+                            <input type="text" id="set-family-name" class="form-control" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+                            <div class="form-group">
+                                <label class="form-label">Primary Wedding Name</label>
+                                <input type="text" id="set-wedding-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Wedding Date</label>
+                                <input type="date" id="set-wedding-date" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Default Currency</label>
+                            <select id="set-currency" class="form-select" style="max-width: 200px;">
+                                <option value="BDT">BDT (Bangladeshi Taka)</option>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Default Message Signature</label>
+                            <textarea id="set-signature" class="form-control" rows="3"></textarea>
+                            <small style="color: var(--text-muted); font-size: 11.5px;">Appended to newly generated thank-you notes.</small>
+                        </div>
+
+                        <div style="margin-top: 24px; text-align: right;">
+                            <button type="submit" class="btn btn-gold">Save Preferences</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
